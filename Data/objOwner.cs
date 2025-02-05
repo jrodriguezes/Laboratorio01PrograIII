@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Class1
+    public class objOwner
     {
+        public int Owner {  get; set; }
+        public string Name { get; set; }
     }
 }
