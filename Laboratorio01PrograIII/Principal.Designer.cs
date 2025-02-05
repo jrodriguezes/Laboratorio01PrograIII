@@ -87,7 +87,7 @@
             this.spinnerYears.Name = "spinnerYears";
             this.spinnerYears.Size = new System.Drawing.Size(68, 20);
             this.spinnerYears.TabIndex = 1;
-            this.spinnerYears.ValueChanged += new System.EventHandler(this.spiner_ValueChanged);
+            this.spinnerYears.ValueChanged += new System.EventHandler(this.spinnerYears_ValueChanged);
             // 
             // dgvPet
             // 
@@ -107,6 +107,7 @@
             this.dgvPet.Name = "dgvPet";
             this.dgvPet.Size = new System.Drawing.Size(861, 363);
             this.dgvPet.TabIndex = 0;
+            this.dgvPet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPet_CellClick);
             this.dgvPet.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellEnter);
             // 
             // Nombre
