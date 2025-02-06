@@ -98,6 +98,7 @@ namespace Laboratorio01PrograIII
                 objPet pet = new objPet
                 {
                     Name = dgvPet.Rows[e.RowIndex].Cells["Nombre"].Value.ToString(),
+                    Color = dgvPet.Rows[e.RowIndex].Cells["Color"].Value.ToString(),
                     Size = dgvPet.Rows[e.RowIndex].Cells["Tamaño"].Value.ToString(),
                     Sex = dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value.ToString(),
                     Years = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Edad"].Value),
@@ -125,19 +126,29 @@ namespace Laboratorio01PrograIII
                 crud.insertPet(pet);
 
                 MessageBox.Show("Mascota insertada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
             } else if (e.RowIndex >= 0 && e.ColumnIndex == 8)
             {
                 // Recoger la información de la fila seleccionada
+                bdQueries qry = new bdQueries();
                 objPet pet = new objPet
                 {
-           
+                    
                     Name = dgvPet.Rows[e.RowIndex].Cells["Nombre"].Value.ToString(),
+                    Color = dgvPet.Rows[e.RowIndex].Cells["Color"].Value.ToString(),
                     Size = dgvPet.Rows[e.RowIndex].Cells["Tamaño"].Value.ToString(),
                     Sex = dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value.ToString(),
                     Years = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Edad"].Value),
                     Status = true,  // Suponiendo que siempre está activo al insertarlo
                     DateOfEntry = Convert.ToDateTime(dgvPet.Rows[e.RowIndex].Cells["Fecha_Ingreso"].Value),
+                   
                 };
+
+                int petId = qry.verify_IdPet(pet.Name, pet.Color, pet.Size, pet.Sex, pet.Years);
+                MessageBox.Show("ID encontrado: " + petId);
+
+
                 // Cargar la imagen si existe
                 if (dgvPet.Rows[e.RowIndex].Cells["Foto"].Value != null)
                 {
@@ -154,6 +165,9 @@ namespace Laboratorio01PrograIII
                 }
                 bdCRUD crud = new bdCRUD();
                 crud.updatePet(pet);
+
+                MessageBox.Show("Mascota modificada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
         }
     }

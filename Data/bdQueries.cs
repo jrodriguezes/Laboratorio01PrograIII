@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 using System.Drawing;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace Data
@@ -136,6 +137,30 @@ namespace Data
             actualConnection.Close();
 
 
+        }
+
+        public int verify_IdPet(string Name, string Color, string Size, string Sex, int Years) 
+        {
+            connection connection = new connection();
+            NpgsqlConnection actualConnection = connection.ConexionBD();
+
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT Id FROM Pet WHERE " +
+    "Name = '" + Name + "' AND " +
+    "Color = '" + Color + "' AND " +
+    "Size = '" + Size + "' AND " +
+    "Sex = '" + Sex + "' AND " +
+    "Years = " + Years, actualConnection);
+
+            NpgsqlDataReader reader = cmd.ExecuteReader();
+
+            int Id = -1;
+
+            if (reader.Read()) { 
+            
+                 Id = reader.GetInt32(0);
+            }
+            reader.Close();
+            return Id;
         }
     }
 }
