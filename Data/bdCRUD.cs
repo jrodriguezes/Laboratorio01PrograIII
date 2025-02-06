@@ -13,14 +13,34 @@ namespace Data
         {
             connection connection = new connection();
             NpgsqlConnection actualConnection = connection.ConexionBD();
-    
-            NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO Pet (Name, Size, Sex, Years, Status, DateofEntry, Image) " +
-            "VALUES ('" + pet.Name + "', '" + pet.Size + "', '" + pet.Sex + "', " +
+
+            NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO Pet (Name, Color, Size, Sex, Years, Status, DateofEntry, Image) " +
+            "VALUES ('" + pet.Name + "', '" + pet.Color + "', '" + pet.Size + "', '" + pet.Sex + "', " +
             pet.Years + ", " + pet.Status + ", '" + pet.DateOfEntry.ToString("yyyy-MM-dd") + "', " +
-            "'" + Convert.ToBase64String(pet.Image) + "')", actualConnection);
+            "decode('" + BitConverter.ToString(pet.Image).Replace("-", "") + "', 'hex'))", actualConnection);
 
             cmd.ExecuteNonQuery();
         }
+
+        public void updatePet(objPet pet)
+{
+    connection connection = new connection();
+    NpgsqlConnection actualConnection = connection.ConexionBD();
+
+    NpgsqlCommand cmd = new NpgsqlCommand("UPDATE Pet SET " +
+    "Name = '" + pet.Name + "', " +
+    "Color = '" + pet.Color + "', " +
+    "Size = '" + pet.Size + "', " +
+    "Sex = '" + pet.Sex + "', " +
+    "Years = " + pet.Years + ", " +
+    "Status = " + pet.Status + ", " +
+    "DateofEntry = '" + pet.DateOfEntry.ToString("yyyy-MM-dd") + "', " +
+    "Image = decode('" + BitConverter.ToString(pet.Image).Replace("-", "") + "', 'hex') " +
+    "WHERE Id = " + pet.Id, actualConnection);
+
+    cmd.ExecuteNonQuery();
+}
+
 
     }
 }

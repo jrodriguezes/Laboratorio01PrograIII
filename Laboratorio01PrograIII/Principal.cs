@@ -125,6 +125,35 @@ namespace Laboratorio01PrograIII
                 crud.insertPet(pet);
 
                 MessageBox.Show("Mascota insertada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } else if (e.RowIndex >= 0 && e.ColumnIndex == 8)
+            {
+                // Recoger la información de la fila seleccionada
+                objPet pet = new objPet
+                {
+           
+                    Name = dgvPet.Rows[e.RowIndex].Cells["Nombre"].Value.ToString(),
+                    Size = dgvPet.Rows[e.RowIndex].Cells["Tamaño"].Value.ToString(),
+                    Sex = dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value.ToString(),
+                    Years = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Edad"].Value),
+                    Status = true,  // Suponiendo que siempre está activo al insertarlo
+                    DateOfEntry = Convert.ToDateTime(dgvPet.Rows[e.RowIndex].Cells["Fecha_Ingreso"].Value),
+                };
+                // Cargar la imagen si existe
+                if (dgvPet.Rows[e.RowIndex].Cells["Foto"].Value != null)
+                {
+                    Image img = (Image)dgvPet.Rows[e.RowIndex].Cells["Foto"].Value;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        pet.Image = ms.ToArray();
+                    }
+                }
+                else
+                {
+                    pet.Image = new byte[0]; // Si no hay imagen, se envía un byte vacío
+                }
+                bdCRUD crud = new bdCRUD();
+                crud.updatePet(pet);
             }
         }
     }
