@@ -94,7 +94,7 @@ namespace Laboratorio01PrograIII
         private void dgvPet_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // Verificar que la celda seleccionada sea válida y que se haga clic en la columna 8
-            if (e.RowIndex >= 0 && e.ColumnIndex == 7)  // Columna 8 (índice 7 porque inicia en 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex == 8)  // Columna 8 (índice 7 porque inicia en 0)
             {
                 // Recoger la información de la fila seleccionada
                 objPet pet = new objPet
@@ -130,7 +130,7 @@ namespace Laboratorio01PrograIII
                 MessageBox.Show("Mascota insertada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
-            } else if (e.RowIndex >= 0 && e.ColumnIndex == 8)
+            } else if (e.RowIndex >= 0 && e.ColumnIndex == 9)
             {
                 // Recoger la información de la fila seleccionada
    
