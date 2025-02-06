@@ -176,6 +176,10 @@ namespace Laboratorio01PrograIII
 
                 MessageBox.Show("Mascota modificada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+            } else if (e.RowIndex >= 0 && e.ColumnIndex == 10)
+            {
+                PetInformationWindow nuevoFormulario = new PetInformationWindow();
+                nuevoFormulario.ShowDialog();
             }
         }
     }

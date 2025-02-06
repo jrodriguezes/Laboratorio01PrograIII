@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.Reporte = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.date = new System.Windows.Forms.DateTimePicker();
             this.spinnerYears = new System.Windows.Forms.NumericUpDown();
@@ -44,22 +44,22 @@
             this.Foto = new System.Windows.Forms.DataGridViewImageColumn();
             this.Insertar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Desahabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.tabControl1.SuspendLayout();
+            this.Informacion = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Reporte.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinnerYears)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPet)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // Reporte
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(868, 459);
-            this.tabControl1.TabIndex = 0;
+            this.Reporte.Controls.Add(this.tabPage1);
+            this.Reporte.Controls.Add(this.tabPage2);
+            this.Reporte.Location = new System.Drawing.Point(0, 0);
+            this.Reporte.Name = "Reporte";
+            this.Reporte.SelectedIndex = 0;
+            this.Reporte.Size = new System.Drawing.Size(868, 459);
+            this.Reporte.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -71,7 +71,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(860, 433);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Adopcion";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // date
@@ -104,7 +104,7 @@
             this.Foto,
             this.Insertar,
             this.Modificar,
-            this.Desahabilitar});
+            this.Informacion});
             this.dgvPet.Location = new System.Drawing.Point(3, 53);
             this.dgvPet.Name = "dgvPet";
             this.dgvPet.Size = new System.Drawing.Size(861, 363);
@@ -119,7 +119,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(860, 433);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Reportes";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // Id
@@ -183,23 +183,23 @@
             this.Modificar.ReadOnly = true;
             this.Modificar.Width = 75;
             // 
-            // Desahabilitar
+            // Informacion
             // 
-            this.Desahabilitar.HeaderText = "Desahabilitar";
-            this.Desahabilitar.Name = "Desahabilitar";
-            this.Desahabilitar.ReadOnly = true;
-            this.Desahabilitar.Width = 80;
+            this.Informacion.HeaderText = "Informacion";
+            this.Informacion.Name = "Informacion";
+            this.Informacion.ReadOnly = true;
+            this.Informacion.Width = 80;
             // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 450);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.Reporte);
             this.Name = "Principal";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Principal_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.Reporte.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spinnerYears)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPet)).EndInit();
@@ -209,7 +209,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl Reporte;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView dgvPet;
@@ -225,7 +225,7 @@
         private System.Windows.Forms.DataGridViewImageColumn Foto;
         private System.Windows.Forms.DataGridViewButtonColumn Insertar;
         private System.Windows.Forms.DataGridViewButtonColumn Modificar;
-        private System.Windows.Forms.DataGridViewButtonColumn Desahabilitar;
+        private System.Windows.Forms.DataGridViewButtonColumn Informacion;
     }
 }
 
