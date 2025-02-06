@@ -35,7 +35,7 @@
             this.dgvPet = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColorR = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Color = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Tamaño = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Sexo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Edad = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,7 +94,7 @@
             this.dgvPet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Nombre,
-            this.ColorR,
+            this.Color,
             this.Tamaño,
             this.Sexo,
             this.Edad,
@@ -126,11 +126,11 @@
             this.Nombre.HeaderText = "Nombre";
             this.Nombre.Name = "Nombre";
             // 
-            // ColorR
+            // Color
             // 
-            this.ColorR.Frozen = true;
-            this.ColorR.HeaderText = "Color";
-            this.ColorR.Name = "ColorR";
+            this.Color.Frozen = true;
+            this.Color.HeaderText = "Color";
+            this.Color.Name = "Color";
             // 
             // Tamaño
             // 
@@ -208,7 +208,7 @@
         private System.Windows.Forms.NumericUpDown spinnerYears;
         private System.Windows.Forms.DateTimePicker date;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ColorR;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Color;
         private System.Windows.Forms.DataGridViewComboBoxColumn Tamaño;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Sexo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Edad;
