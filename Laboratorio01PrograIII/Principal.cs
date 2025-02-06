@@ -28,8 +28,9 @@ namespace Laboratorio01PrograIII
             adjustPosition(0);
             bdQueries bd = new bdQueries();
             bd.load_Sizes(dgvPet);
+            bd.load_Colors(dgvPet);
             bd.queryPets(dgvPet);
-   
+            
 
         }
 

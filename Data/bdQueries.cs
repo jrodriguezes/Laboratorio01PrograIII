@@ -37,9 +37,9 @@ namespace Data
 
                 // Configuración de la celda ComboBox "Color"
                 DataGridViewComboBoxCell colorCell = (DataGridViewComboBoxCell)dgv.Rows[rowIndex].Cells["Color"];
-                if (colorCell.Items.Contains(row["size"].ToString()))
+                if (colorCell.Items.Contains(row["color"].ToString()))
                 {
-                    colorCell.Value = row["size"].ToString();
+                    colorCell.Value = row["color"].ToString();
                 }
                 else
                 {
@@ -107,5 +107,35 @@ namespace Data
             actualConnection.Close();
         }
 
+
+        public void load_Colors(DataGridView dgv)
+        {
+            connection connection = new connection();
+            NpgsqlConnection actualConnection = connection.ConexionBD();
+
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT color FROM COLOR", actualConnection);
+
+            NpgsqlDataReader reader = cmd.ExecuteReader();
+
+            if (dgv.Columns["Color"] is DataGridViewComboBoxColumn sizeColumn)
+            {
+                sizeColumn.Items.Clear(); // Limpia las opciones previas antes de cargar nuevas
+
+                while (reader.Read())
+                {
+                    string color = reader["color"].ToString();
+
+                    // Agregar valores al ComboBoxColumn
+                    if (!sizeColumn.Items.Contains(color))
+                    {
+                        sizeColumn.Items.Add(color);
+                    }
+                }
+            }
+
+            actualConnection.Close();
+
+
+        }
     }
 }
