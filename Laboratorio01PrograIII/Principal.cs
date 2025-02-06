@@ -23,6 +23,8 @@ namespace Laboratorio01PrograIII
         {
             date.Visible = true;
             spinnerYears.Visible = true;
+            dgvPet.Columns["Id"].Visible = false;  // Ocultar la columna Id
+
 
             // Posicionar en la primera celda de su columna correspondiente
             adjustPosition(0);
@@ -131,10 +133,10 @@ namespace Laboratorio01PrograIII
             } else if (e.RowIndex >= 0 && e.ColumnIndex == 8)
             {
                 // Recoger la información de la fila seleccionada
-                bdQueries qry = new bdQueries();
+   
                 objPet pet = new objPet
                 {
-                    
+                    Id = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Id"].Value),
                     Name = dgvPet.Rows[e.RowIndex].Cells["Nombre"].Value.ToString(),
                     Color = dgvPet.Rows[e.RowIndex].Cells["Color"].Value.ToString(),
                     Size = dgvPet.Rows[e.RowIndex].Cells["Tamaño"].Value.ToString(),
@@ -144,10 +146,7 @@ namespace Laboratorio01PrograIII
                     DateOfEntry = Convert.ToDateTime(dgvPet.Rows[e.RowIndex].Cells["Fecha_Ingreso"].Value),
                    
                 };
-
-                int petId = qry.verify_IdPet(pet.Name, pet.Color, pet.Size, pet.Sex, pet.Years);
-                MessageBox.Show("ID encontrado: " + petId);
-
+                MessageBox.Show("ID encontrado: " + pet.Id);
 
                 // Cargar la imagen si existe
                 if (dgvPet.Rows[e.RowIndex].Cells["Foto"].Value != null)

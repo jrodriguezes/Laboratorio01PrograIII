@@ -34,6 +34,7 @@
             this.spinnerYears = new System.Windows.Forms.NumericUpDown();
             this.dgvPet = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Color = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Tamaño = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -93,6 +94,7 @@
             // 
             this.dgvPet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
             this.Nombre,
             this.Color,
             this.Tamaño,
@@ -119,6 +121,12 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // Id
+            // 
+            this.Id.Frozen = true;
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
             // 
             // Nombre
             // 
@@ -207,6 +215,7 @@
         private System.Windows.Forms.DataGridView dgvPet;
         private System.Windows.Forms.NumericUpDown spinnerYears;
         private System.Windows.Forms.DateTimePicker date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewComboBoxColumn Color;
         private System.Windows.Forms.DataGridViewComboBoxColumn Tamaño;
