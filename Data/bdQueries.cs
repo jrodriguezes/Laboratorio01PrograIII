@@ -32,6 +32,8 @@ namespace Data
             {
                 int rowIndex = dgv.Rows.Add(); // Agrega una nueva fila y obtiene su índice
 
+                // Asignar el ID a la columna correspondiente
+                dgv.Rows[rowIndex].Cells["ID"].Value = row["id"].ToString();
                 dgv.Rows[rowIndex].Cells["Nombre"].Value = row["name"].ToString();
                 dgv.Rows[rowIndex].Cells["Edad"].Value = row["years"].ToString();
                 dgv.Rows[rowIndex].Cells["Fecha_Ingreso"].Value = Convert.ToDateTime(row["dateofentry"]).ToString("yyyy-MM-dd");

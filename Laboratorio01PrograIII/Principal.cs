@@ -43,8 +43,8 @@ namespace Laboratorio01PrograIII
 
         private void adjustPosition(int fila)
         {
-            int columnDate = 5;    // Índice de la columna para `DateTimePicker`
-            int columnNumeric = 4; // Índice de la columna para `NumericUpDown`
+            int columnDate = 6;    // Índice de la columna para `DateTimePicker`
+            int columnNumeric = 5; // Índice de la columna para `NumericUpDown`
 
             // Obtener el rectángulo de la celda de fecha
             Rectangle rectFecha = dgvPet.GetCellDisplayRectangle(columnDate, fila, true);
@@ -80,19 +80,20 @@ namespace Laboratorio01PrograIII
         private void date_ValueChanged(object sender, EventArgs e)
         {
             int fila = dgvPet.CurrentCell.RowIndex;
-            int columnDate = 5; // Índice de la columna de fecha
+            int columnDate = 6; // Índice de la columna de fecha
             dgvPet.Rows[fila].Cells[columnDate].Value = date.Value.ToString("yyyy-MM-dd");
         }
 
         private void spinnerYears_ValueChanged(object sender, EventArgs e)
         {
             int fila = dgvPet.CurrentCell.RowIndex;
-            int columnNumeric = 4; // Índice de la columna numérica
+            int columnNumeric = 5; // Índice de la columna numérica
             dgvPet.Rows[fila].Cells[columnNumeric].Value = spinnerYears.Value;
         }
 
         private void dgvPet_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            bdQueries bd = new bdQueries();
             // Verificar que la celda seleccionada sea válida y que se haga clic en la columna 8
             if (e.RowIndex >= 0 && e.ColumnIndex == 8)  // Columna 8 (índice 7 porque inicia en 0)
             {
@@ -126,6 +127,10 @@ namespace Laboratorio01PrograIII
                 // Insertar la mascota en la base de datos
                 bdCRUD crud = new bdCRUD();
                 crud.insertPet(pet);
+
+                bd.load_Sizes(dgvPet);
+                bd.load_Colors(dgvPet);
+                bd.queryPets(dgvPet);
 
                 MessageBox.Show("Mascota insertada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -164,6 +169,10 @@ namespace Laboratorio01PrograIII
                 }
                 bdCRUD crud = new bdCRUD();
                 crud.updatePet(pet);
+
+                bd.load_Sizes(dgvPet);
+                bd.load_Colors(dgvPet);
+                bd.queryPets(dgvPet);
 
                 MessageBox.Show("Mascota modificada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
