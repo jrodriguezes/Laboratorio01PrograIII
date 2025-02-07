@@ -162,7 +162,7 @@ namespace Laboratorio01PrograIII
                     Name = dgvPet.Rows[e.RowIndex].Cells["Nombre"].Value != null ? dgvPet.Rows[e.RowIndex].Cells["Nombre"].Value.ToString() : string.Empty,
                     Color = dgvPet.Rows[e.RowIndex].Cells["Color"].Value != null ? dgvPet.Rows[e.RowIndex].Cells["Color"].Value.ToString() : string.Empty,
                     Size = dgvPet.Rows[e.RowIndex].Cells["Tamaño"].Value != null ? dgvPet.Rows[e.RowIndex].Cells["Tamaño"].Value.ToString() : string.Empty,
-                    Sex = dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value != null ? dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value.ToString() : string.Empty,
+                    Sex = (dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value != null && (bool)dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value) ? "Hembra" : "Macho",
 
                     // Comprobacion de Edad, en caso de que sea null
                     Years = dgvPet.Rows[e.RowIndex].Cells["Edad"].Value != null ? Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Edad"].Value) : 0,
@@ -205,7 +205,7 @@ namespace Laboratorio01PrograIII
                     Name = dgvPet.Rows[e.RowIndex].Cells["Nombre"].Value.ToString(),
                     Color = dgvPet.Rows[e.RowIndex].Cells["Color"].Value.ToString(),
                     Size = dgvPet.Rows[e.RowIndex].Cells["Tamaño"].Value.ToString(),
-                    Sex = dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value.ToString(),
+                    Sex = (dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value != null && (bool)dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value) ? "Hembra" : "Macho",
                     Years = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Edad"].Value),
                     Status = true,
                     DateOfEntry = Convert.ToDateTime(dgvPet.Rows[e.RowIndex].Cells["Fecha_Ingreso"].Value),
