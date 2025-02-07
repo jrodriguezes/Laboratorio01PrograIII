@@ -148,5 +148,26 @@ namespace Data
             dgv.DataSource = datatable;
 
         }
+
+        public string get_NameByPetId(int petId)
+        {
+            string Name = "";
+
+            connection connection = new connection();
+            NpgsqlConnection actualConnection = connection.ConexionBD();
+
+            NpgsqlCommand cmd = new NpgsqlCommand("Select name from Pet where id =" + petId,actualConnection);
+
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                if (dr.Read())
+                {
+                    Name = dr["Name"].ToString();
+                }
+            }
+            return Name;
+        }
     }
 }

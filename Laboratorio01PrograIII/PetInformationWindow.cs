@@ -29,7 +29,18 @@ namespace Laboratorio01PrograIII
 
         private void btnAdoptar_Click(object sender, EventArgs e)
         {
+            bdQueries qry = new bdQueries();
+            bdCRUD bd = new bdCRUD();
+            int userId = Convert.ToInt32(txtCedula.Text);
+            string name = txtNombre.Text;
+            bd.insert_User(userId, name);
+            DateTime actualDate = DateTime.Now;
 
+            bd.insert_Adoption(userId, name, petId, actualDate);
+            string petName = qry.get_NameByPetId(petId);
+
+            MessageBox.Show("Felicidades " + name + " has adoptado a " + petName);
+            this.Close();
         }
 
         private void rdLike_Checked_Changed(object sender, EventArgs e)

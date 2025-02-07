@@ -83,6 +83,41 @@ namespace Data
             actualConnection.Close();
         }
 
+        public void insert_User(int userId, string name)
+        {
+            connection connection = new connection();
+            NpgsqlConnection actualConnection = connection.ConexionBD();
+
+            // Primero verificamos si el usuario ya existe
+            NpgsqlCommand checkCmd = new NpgsqlCommand("SELECT COUNT(*) FROM owner WHERE Id = " + userId, actualConnection);
+            int count = Convert.ToInt32(checkCmd.ExecuteScalar()); // Devuelve la cantidad de registros con ese ID
+
+            if (count == 0) // Si no existe, insertarlo
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO owner(Id, Name) VALUES (" + userId + ", '" + name + "')", actualConnection);
+                cmd.ExecuteNonQuery();
+            }
+
+            actualConnection.Close();
+        }
+
+        public void insert_Adoption(int owner_Id, string owner_Name, int pet_Id, DateTime adoption_Date)
+        {
+            connection connection = new connection();
+            NpgsqlConnection actualConnection = connection.ConexionBD();
+            NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO Adoption (Owner_Id, Owner_Name, Pet_Id, Adoption_Date) " +
+            "VALUES (" + owner_Id + ", '" + owner_Name + "', " + pet_Id + ", '" + adoption_Date.ToString("yyyy-MM-dd") + "')", actualConnection);
+
+            cmd.ExecuteNonQuery();
+
+            cmd = new NpgsqlCommand("Update Pet set status = false where id = " + pet_Id, actualConnection);
+
+            cmd.ExecuteNonQuery();
+
+            actualConnection.Close();
+
+        }
+
     }
 }
 
