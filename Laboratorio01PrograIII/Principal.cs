@@ -9,11 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Data;
+using Logic;
 
 namespace Laboratorio01PrograIII
 {
     public partial class Principal : Form
     {
+        bdLogic logic = new bdLogic();
         public Principal()
         {
             InitializeComponent();
@@ -27,10 +29,10 @@ namespace Laboratorio01PrograIII
 
             // Posicionar en la primera celda de su columna correspondiente
             adjustPosition(0);
-            bdQueries bd = new bdQueries();
-            bd.load_Sizes(dgvPet);
-            bd.load_Colors(dgvPet);
-            bd.queryPets(dgvPet);
+
+            logic.LoadSizes(dgvPet);
+            logic.LoadColors(dgvPet);
+            logic.LoadPets(dgvPet);
         }
 
         private void dgv_CellEnter(object sender, DataGridViewCellEventArgs e)
@@ -70,7 +72,7 @@ namespace Laboratorio01PrograIII
             }
             else
             {
-                // Si la celda está vacia, puedes asignar una fecha predeterminada
+                // Si la celda esta vacia, puedes asignar una fecha predeterminada
                 date.Value = DateTime.Today;
             }
 
@@ -107,9 +109,6 @@ namespace Laboratorio01PrograIII
 
         private void dgvPet_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            bdCRUD crud = new bdCRUD();
-            bdQueries bd = new bdQueries();
-
             // Columna de imagen
             if (e.RowIndex >= 0 && e.ColumnIndex == 7)
             {
@@ -128,7 +127,7 @@ namespace Laboratorio01PrograIII
                             // Ajustar el tamaño de la imagen para que se ajuste a la celda
                             int cellWidth = dgvPet.Columns[e.ColumnIndex].Width;
                             int cellHeight = dgvPet.Rows[e.RowIndex].Height;
-                            Image resizedImage = ResizeImage(image, cellWidth, cellHeight);
+                            Image resizedImage = logic.ResizeImage(image, cellWidth, cellHeight);
 
                             // Asignar la imagen redimensionada a la celda
                             dgvPet.Rows[e.RowIndex].Cells["Foto"].Value = resizedImage;
@@ -145,7 +144,7 @@ namespace Laboratorio01PrograIII
                             int petId = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["ID"].Value);
 
                             // Llamar metodo para actualizar imagen en la BD
-                            crud.updatePetImage(petId, imageBytes);
+                            logic.UpdatePetImage(petId, imageBytes);
                         }
                         catch (Exception ex)
                         {
@@ -188,11 +187,11 @@ namespace Laboratorio01PrograIII
                     pet.Image = new byte[0]; // Si no hay imagen, se envía un byte vacio
                 }
 
-                crud.insertPet(pet);
+                logic.InsertPet(pet);
 
-                bd.load_Sizes(dgvPet);
-                bd.load_Colors(dgvPet);
-                bd.queryPets(dgvPet);
+                logic.LoadSizes(dgvPet);
+                logic.LoadColors(dgvPet);
+                logic.LoadPets(dgvPet);
 
                 MessageBox.Show("Mascota insertada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -227,11 +226,11 @@ namespace Laboratorio01PrograIII
                     pet.Image = new byte[0]; 
                 }
            
-                crud.updatePet(pet);
+                logic.UpdatePet(pet);
 
-                bd.load_Sizes(dgvPet);
-                bd.load_Colors(dgvPet);
-                bd.queryPets(dgvPet);
+                logic.LoadSizes(dgvPet);
+                logic.LoadColors(dgvPet);
+                logic.LoadPets(dgvPet);
 
                 MessageBox.Show("Mascota modificada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -243,23 +242,15 @@ namespace Laboratorio01PrograIII
                 nuevoFormulario.ShowDialog();
             }
         }
-
-        private Image ResizeImage(Image img, int width, int height)
-        {
-            Bitmap resizedBitmap = new Bitmap(img, new Size(width, height));
-            return resizedBitmap;
-        }
-
+ 
         private void rdPets_CheckedChanged(object sender, EventArgs e)
         {
-            bdQueries qry = new bdQueries();
-            qry.get_adoptedPets(dgvReport);
+            logic.LoadAdoptedPets(dgvReport);
         }
 
         private void rdLikes_CheckedChanged(object sender, EventArgs e)
         {
-            bdQueries qry = new bdQueries();
-            qry.get_Top3Likes(dgvReport);
+            logic.LoadTop3LikedPets(dgvReport);
         }
     }
 }

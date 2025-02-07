@@ -155,10 +155,10 @@ namespace Data
 
             DataTable datatable = new DataTable();
             NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(
-    "SELECT p.id, p.name, p.color, p.size, p.sex, p.years, p.status, p.dateofentry, pl.likes " +
-    "FROM Pet p " +
-    "LEFT JOIN Pet_Likes pl ON p.id = pl.pet_id " +
-    "WHERE p.id = " + id, actualConnection);
+                "SELECT p.id, p.name, p.color, p.size, p.sex, p.years, p.status, p.dateofentry, pl.likes " +
+                "FROM Pet p " +
+                "LEFT JOIN Pet_Likes pl ON p.id = pl.pet_id " +
+                "WHERE p.id = " + id, actualConnection);
             adapter.Fill(datatable);
             dgv.DataSource = datatable;
 
