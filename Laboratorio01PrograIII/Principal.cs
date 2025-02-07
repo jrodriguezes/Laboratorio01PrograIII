@@ -64,13 +64,13 @@ namespace Laboratorio01PrograIII
                 }
                 else
                 {
-                    // Asignar una fecha válida por defecto si la fecha es invalida
+                    // Asignar una fecha valida por defecto si la fecha es invalida
                     date.Value = DateTime.Today;  // o cualquier otra fecha predeterminada
                 }
             }
             else
             {
-                // Si la celda está vacía, puedes asignar una fecha predeterminada
+                // Si la celda está vacia, puedes asignar una fecha predeterminada
                 date.Value = DateTime.Today;
             }
 
@@ -110,6 +110,7 @@ namespace Laboratorio01PrograIII
             bdCRUD crud = new bdCRUD();
             bdQueries bd = new bdQueries();
 
+            // Columna de imagen
             if (e.RowIndex >= 0 && e.ColumnIndex == 7)
             {
                 using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -152,6 +153,7 @@ namespace Laboratorio01PrograIII
                         }
                     }
                 }
+                // Columna de insertar
             } else if (e.RowIndex >= 0 && e.ColumnIndex == 8)
             {
                 objPet pet = new objPet
@@ -194,6 +196,7 @@ namespace Laboratorio01PrograIII
 
                 MessageBox.Show("Mascota insertada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            // Columna de modificar
             else if (e.RowIndex >= 0 && e.ColumnIndex == 9)
             {
                 objPet pet = new objPet
@@ -231,8 +234,9 @@ namespace Laboratorio01PrograIII
                 bd.queryPets(dgvPet);
 
                 MessageBox.Show("Mascota modificada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            } else if (e.RowIndex >= 0 && e.ColumnIndex == 10)
+            }
+            // Columna de informacion
+            else if (e.RowIndex >= 0 && e.ColumnIndex == 10)
             {
                 int petId = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Id"].Value);
                 PetInformationWindow nuevoFormulario = new PetInformationWindow(petId, dgvPet);
