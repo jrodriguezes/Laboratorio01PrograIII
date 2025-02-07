@@ -48,7 +48,6 @@ namespace Data
             }
         }
 
-
         public void insert_PetLikes(int pet_Id)
         {
             int likes = 0;
@@ -118,6 +117,28 @@ namespace Data
 
         }
 
+        // Método para actualizar la imagen en la base de datos
+        public void updatePetImage(int petId, byte[] imageData)
+        {
+            try
+            {
+                connection connection = new connection();
+                NpgsqlConnection actualConnection = connection.ConexionBD();
+
+                string query = "UPDATE pet SET image = @image WHERE id = " + petId;
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, actualConnection))
+                {
+                    cmd.Parameters.AddWithValue("@image", imageData);
+                    cmd.ExecuteNonQuery();
+                }
+
+                actualConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar la imagen en la base de datos: " + ex.Message);
+            }
+        }
     }
 }
 

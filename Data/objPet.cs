@@ -17,7 +17,7 @@ namespace Data
         public int Years { get; set; }
         public bool Status { get; set; }
         public DateTime DateOfEntry { get; set; }
-        public byte[] Image { get; set; }  // La imagen se almacena en byte[]
+        public byte[] Image { get; set; }  
 
 
     }

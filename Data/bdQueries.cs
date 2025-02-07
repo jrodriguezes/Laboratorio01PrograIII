@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Npgsql;
 using System.Drawing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Reflection;
 
 
 namespace Data
@@ -63,21 +64,37 @@ namespace Data
                 string sex = row["sex"].ToString();
                 dgv.Rows[rowIndex].Cells["Sexo"].Value = sex.Equals("Hembra", StringComparison.OrdinalIgnoreCase);
 
-                // Cargar la imagen en la columna "Foto"
-                //    if (row["image"] != DBNull.Value)
-                //    {
-                //        byte[] imageData = (byte[])row["image"];
-                //        using (MemoryStream ms = new MemoryStream(imageData))
-                //        {
-                //            ms.Position = 0; // Asegurar que el stream esté en la posición inicial
-                //            dgv.Rows[rowIndex].Cells["Foto"].Value = Image.FromStream(ms);
-                //        }
-                //    }
-                //}
+                //Cargar la imagen en la columna "Foto"
+                if (row["image"] != DBNull.Value)
+                {
+                    byte[] imageData = (byte[])row["image"];
 
-                actualConnection.Close();
+                    if (imageData.Length > 0) // Verificar si el array no está vacío
+                    {
+                        try
+                        {
+                            using (MemoryStream ms = new MemoryStream(imageData))
+                            {
+                                ms.Position = 0; // Asegurar que el stream esté en la posición inicial
+                                dgv.Rows[rowIndex].Cells["Foto"].Value = Image.FromStream(ms);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al cargar la imagen: " + ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        dgv.Rows[rowIndex].Cells["Foto"].Value = null; // Si la imagen está vacía, mostrar celda vacía
+                    }
+                }
             }
-        }
+            
+
+            actualConnection.Close();
+            }
+        
 
         public void load_Sizes(DataGridView dgv)
         {
@@ -176,7 +193,6 @@ namespace Data
 
             DataTable datatable = new DataTable();
 
-
             NpgsqlDataAdapter adapter = new NpgsqlDataAdapter("Select a.Owner_Id as Cedula, a.Owner_Name as Nombre, " +
                 "p.Name as Nombre_Mascota, p.Color as Color, p.Size as Tamano, p.Sex as Sexo, " +
                 "p.Years as Anos, a.Adoption_Date as Fecha_Adopcion  from Adoption a" +
@@ -185,5 +201,21 @@ namespace Data
             adapter.Fill(datatable);
             dgv.DataSource= datatable;
         }
+
+
+        public void get_Top3Likes(DataGridView dgv)
+        {
+            connection connection = new connection();
+            NpgsqlConnection actualConnection = connection.ConexionBD();
+
+            DataTable datatable = new DataTable();
+
+            NpgsqlDataAdapter adapter = new NpgsqlDataAdapter("SELECT p.id, p.name AS Nombre, p.image AS Foto, pl.likes AS Likes " +
+                "FROM Pet AS p INNER JOIN Pet_Likes AS pl ON p.id = pl.pet_id ORDER BY pl.likes DESC LIMIT 3;", actualConnection);
+
+            adapter.Fill(datatable);
+            dgv.DataSource = datatable;
+        }
+
     }
 }

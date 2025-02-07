@@ -90,7 +90,53 @@ namespace Laboratorio01PrograIII
 
         private void dgvPet_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            bdCRUD crud = new bdCRUD();
             bdQueries bd = new bdQueries();
+
+            if (e.RowIndex >= 0 && e.ColumnIndex == 7)
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Title = "Seleccionar imagen";
+                    openFileDialog.Filter = "Archivos de imagen|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            string filePath = openFileDialog.FileName;
+                            Image image = Image.FromFile(filePath);
+
+                            // Ajustar el tamaño de la imagen para que se ajuste a la celda
+                            int cellWidth = dgvPet.Columns[e.ColumnIndex].Width;
+                            int cellHeight = dgvPet.Rows[e.RowIndex].Height;
+                            Image resizedImage = ResizeImage(image, cellWidth, cellHeight);
+
+                            // Asignar la imagen redimensionada a la celda
+                            dgvPet.Rows[e.RowIndex].Cells["Foto"].Value = resizedImage;
+
+                            // Convertir imagen a byte[]
+                            byte[] imageBytes;
+                            using (MemoryStream ms = new MemoryStream())
+                            {
+                                resizedImage.Save(ms, image.RawFormat);
+                                imageBytes = ms.ToArray();
+                            }
+
+                            // Obtener ID de la mascota para actualizar la base de datos
+                            int petId = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["ID"].Value);
+
+                            // Llamar método para actualizar imagen en la BD
+                            crud.updatePetImage(petId, imageBytes);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al cargar la imagen: " + ex.Message);
+                        }
+                    }
+                }
+            }
+
             // Verificar que la celda seleccionada sea válida y que se haga clic en la columna 8
             if (e.RowIndex >= 0 && e.ColumnIndex == 8)  // Columna 8 (índice 7 porque inicia en 0)
             {
@@ -122,7 +168,7 @@ namespace Laboratorio01PrograIII
                 }
 
                 // Insertar la mascota en la base de datos
-                bdCRUD crud = new bdCRUD();
+         
                 crud.insertPet(pet);
 
                 bd.load_Sizes(dgvPet);
@@ -162,7 +208,7 @@ namespace Laboratorio01PrograIII
                 {
                     pet.Image = new byte[0]; // Si no hay imagen, se envía un byte vacío
                 }
-                bdCRUD crud = new bdCRUD();
+           
                 crud.updatePet(pet);
 
                 bd.load_Sizes(dgvPet);
@@ -179,6 +225,12 @@ namespace Laboratorio01PrograIII
             }
         }
 
+        private Image ResizeImage(Image img, int width, int height)
+        {
+            Bitmap resizedBitmap = new Bitmap(img, new Size(width, height));
+            return resizedBitmap;
+        }
+
         private void rdPets_CheckedChanged(object sender, EventArgs e)
         {
             dgvReport.Rows.Clear();
@@ -188,7 +240,9 @@ namespace Laboratorio01PrograIII
 
         private void rdLikes_CheckedChanged(object sender, EventArgs e)
         {
-
+            //dgvReport.Rows.Clear();
+            //bdQueries qry = new bdQueries();
+            //qry.get_Top3Likes(dgvReport);
         }
     }
 }
