@@ -7,19 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Data;
 
 namespace Laboratorio01PrograIII
 {
     public partial class PetInformationWindow : Form
     {
-        public PetInformationWindow()
+
+        private int petId;
+        public PetInformationWindow(int petId)
         {
             InitializeComponent();
+            this.petId = petId;
         }
 
         private void btnLike_Click(object sender, EventArgs e)
         {
-
+            bdCRUD bd = new bdCRUD();
+            bd.insert_PetLikes(petId);
+            this.Close();
         }
 
         private void btnAdoptar_Click(object sender, EventArgs e)
@@ -54,12 +60,14 @@ namespace Laboratorio01PrograIII
 
         private void InformationForm_Load(object sender, EventArgs e)
         {
+            bdQueries qry = new bdQueries();
             txtCedula.Visible = false;
             txtNombre.Visible = false;
             btnAdoptar.Visible = false;
             lbl.Visible = false;
             label1.Visible = false;
             btnLike.Visible = false;
+            qry.load_PetInformation(dgvInformacion, petId);
         }
     }
 }

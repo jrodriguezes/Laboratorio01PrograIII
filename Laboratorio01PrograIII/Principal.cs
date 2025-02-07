@@ -178,7 +178,8 @@ namespace Laboratorio01PrograIII
 
             } else if (e.RowIndex >= 0 && e.ColumnIndex == 10)
             {
-                PetInformationWindow nuevoFormulario = new PetInformationWindow();
+                int petId = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Id"].Value);
+                PetInformationWindow nuevoFormulario = new PetInformationWindow(petId);
                 nuevoFormulario.ShowDialog();
             }
         }
