@@ -117,7 +117,6 @@ namespace Data
 
         }
 
-        // Método para actualizar la imagen en la base de datos
         public void updatePetImage(int petId, byte[] imageData)
         {
             try
@@ -125,10 +124,9 @@ namespace Data
                 connection connection = new connection();
                 NpgsqlConnection actualConnection = connection.ConexionBD();
 
-                string query = "UPDATE pet SET image = @image WHERE id = " + petId;
+                string query = "UPDATE pet SET image = decode('" + BitConverter.ToString(imageData).Replace("-", "") + "', 'hex') WHERE id = " + petId;
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, actualConnection))
                 {
-                    cmd.Parameters.AddWithValue("@image", imageData);
                     cmd.ExecuteNonQuery();
                 }
 
@@ -139,6 +137,8 @@ namespace Data
                 MessageBox.Show("Error al actualizar la imagen en la base de datos: " + ex.Message);
             }
         }
+
+
     }
 }
 

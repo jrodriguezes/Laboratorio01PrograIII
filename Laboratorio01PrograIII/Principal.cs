@@ -40,15 +40,15 @@ namespace Laboratorio01PrograIII
 
         private void adjustPosition(int fila)
         {
-            int columnDate = 6;    // Índice de la columna para `DateTimePicker`
-            int columnNumeric = 5; // Índice de la columna para `NumericUpDown`
+            int columnDate = 6;
+            int columnNumeric = 5;
 
-            // Obtener el rectángulo de la celda de fecha
+            // Obtener el rectangulo de la celda de fecha
             Rectangle rectFecha = dgvPet.GetCellDisplayRectangle(columnDate, fila, true);
             date.Location = new Point(dgvPet.Left + rectFecha.X, dgvPet.Top + rectFecha.Y);
             date.Size = new Size(rectFecha.Width, rectFecha.Height);
 
-            // Obtener el rectángulo de la celda numérica
+            // Obtener el rectangulo de la celda numerica
             Rectangle rectNumero = dgvPet.GetCellDisplayRectangle(columnNumeric, fila, true);
             spinnerYears.Location = new Point(dgvPet.Left + rectNumero.X, dgvPet.Top + rectNumero.Y);
             spinnerYears.Size = new Size(rectNumero.Width, rectNumero.Height);
@@ -57,10 +57,21 @@ namespace Laboratorio01PrograIII
             if (dgvPet.Rows[fila].Cells[columnDate].Value != null)
             {
                 DateTime fecha;
-                if (DateTime.TryParse(dgvPet.Rows[fila].Cells[columnDate].Value.ToString(), out fecha))
+                // Verificar si la fecha es valida
+                if (DateTime.TryParse(dgvPet.Rows[fila].Cells[columnDate].Value.ToString(), out fecha) && fecha != DateTime.MinValue)
                 {
                     date.Value = fecha;
                 }
+                else
+                {
+                    // Asignar una fecha válida por defecto si la fecha es invalida
+                    date.Value = DateTime.Today;  // o cualquier otra fecha predeterminada
+                }
+            }
+            else
+            {
+                // Si la celda está vacía, puedes asignar una fecha predeterminada
+                date.Value = DateTime.Today;
             }
 
             if (dgvPet.Rows[fila].Cells[columnNumeric].Value != null)
@@ -73,18 +84,24 @@ namespace Laboratorio01PrograIII
             }
         }
     
-
         private void date_ValueChanged(object sender, EventArgs e)
         {
-            int fila = dgvPet.CurrentCell.RowIndex;
-            int columnDate = 6; // Índice de la columna de fecha
-            dgvPet.Rows[fila].Cells[columnDate].Value = date.Value.ToString("yyyy-MM-dd");
+            if (dgvPet.CurrentCell != null)
+            {
+                int fila = dgvPet.CurrentCell.RowIndex;
+                int columnDate = 6;
+                dgvPet.Rows[fila].Cells[columnDate].Value = date.Value.ToString("yyyy-MM-dd");
+            }
+            else
+            {
+             
+            }
         }
 
         private void spinnerYears_ValueChanged(object sender, EventArgs e)
         {
             int fila = dgvPet.CurrentCell.RowIndex;
-            int columnNumeric = 5; // Índice de la columna numérica
+            int columnNumeric = 5;
             dgvPet.Rows[fila].Cells[columnNumeric].Value = spinnerYears.Value;
         }
 
@@ -126,7 +143,7 @@ namespace Laboratorio01PrograIII
                             // Obtener ID de la mascota para actualizar la base de datos
                             int petId = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["ID"].Value);
 
-                            // Llamar método para actualizar imagen en la BD
+                            // Llamar metodo para actualizar imagen en la BD
                             crud.updatePetImage(petId, imageBytes);
                         }
                         catch (Exception ex)
@@ -135,21 +152,23 @@ namespace Laboratorio01PrograIII
                         }
                     }
                 }
-            }
-
-            // Verificar que la celda seleccionada sea válida y que se haga clic en la columna 8
-            if (e.RowIndex >= 0 && e.ColumnIndex == 8)  // Columna 8 (índice 7 porque inicia en 0)
+            } else if (e.RowIndex >= 0 && e.ColumnIndex == 8)
             {
-                // Recoger la información de la fila seleccionada
                 objPet pet = new objPet
                 {
-                    Name = dgvPet.Rows[e.RowIndex].Cells["Nombre"].Value.ToString(),
-                    Color = dgvPet.Rows[e.RowIndex].Cells["Color"].Value.ToString(),
-                    Size = dgvPet.Rows[e.RowIndex].Cells["Tamaño"].Value.ToString(),
-                    Sex = dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value.ToString(),
-                    Years = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Edad"].Value),
-                    Status = true,  // Suponiendo que siempre está activo al insertarlo
-                    DateOfEntry = Convert.ToDateTime(dgvPet.Rows[e.RowIndex].Cells["Fecha_Ingreso"].Value),
+                    // Comprobación para evitar null en las celdas
+                    Name = dgvPet.Rows[e.RowIndex].Cells["Nombre"].Value != null ? dgvPet.Rows[e.RowIndex].Cells["Nombre"].Value.ToString() : string.Empty,
+                    Color = dgvPet.Rows[e.RowIndex].Cells["Color"].Value != null ? dgvPet.Rows[e.RowIndex].Cells["Color"].Value.ToString() : string.Empty,
+                    Size = dgvPet.Rows[e.RowIndex].Cells["Tamaño"].Value != null ? dgvPet.Rows[e.RowIndex].Cells["Tamaño"].Value.ToString() : string.Empty,
+                    Sex = dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value != null ? dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value.ToString() : string.Empty,
+
+                    // Comprobacion de Edad, en caso de que sea null
+                    Years = dgvPet.Rows[e.RowIndex].Cells["Edad"].Value != null ? Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Edad"].Value) : 0,
+
+                    // Comprobacion de Fecha_Ingreso, en caso de que sea null
+                    DateOfEntry = dgvPet.Rows[e.RowIndex].Cells["Fecha_Ingreso"].Value != null ? Convert.ToDateTime(dgvPet.Rows[e.RowIndex].Cells["Fecha_Ingreso"].Value) : DateTime.MinValue,
+
+                    Status = true 
                 };
 
                 // Cargar la imagen si existe
@@ -164,11 +183,9 @@ namespace Laboratorio01PrograIII
                 }
                 else
                 {
-                    pet.Image = new byte[0]; // Si no hay imagen, se envía un byte vacío
+                    pet.Image = new byte[0]; // Si no hay imagen, se envía un byte vacio
                 }
 
-                // Insertar la mascota en la base de datos
-         
                 crud.insertPet(pet);
 
                 bd.load_Sizes(dgvPet);
@@ -176,10 +193,9 @@ namespace Laboratorio01PrograIII
                 bd.queryPets(dgvPet);
 
                 MessageBox.Show("Mascota insertada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            } else if (e.RowIndex >= 0 && e.ColumnIndex == 9)
+            }
+            else if (e.RowIndex >= 0 && e.ColumnIndex == 9)
             {
-                // Recoger la información de la fila seleccionada
                 objPet pet = new objPet
                 {
                     Id = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Id"].Value),
@@ -188,13 +204,12 @@ namespace Laboratorio01PrograIII
                     Size = dgvPet.Rows[e.RowIndex].Cells["Tamaño"].Value.ToString(),
                     Sex = dgvPet.Rows[e.RowIndex].Cells["Sexo"].Value.ToString(),
                     Years = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Edad"].Value),
-                    Status = true,  // Suponiendo que siempre está activo al insertarlo
+                    Status = true,
                     DateOfEntry = Convert.ToDateTime(dgvPet.Rows[e.RowIndex].Cells["Fecha_Ingreso"].Value),
                    
                 };
                 MessageBox.Show("ID encontrado: " + pet.Id);
 
-                // Cargar la imagen si existe
                 if (dgvPet.Rows[e.RowIndex].Cells["Foto"].Value != null)
                 {
                     Image img = (Image)dgvPet.Rows[e.RowIndex].Cells["Foto"].Value;
@@ -206,7 +221,7 @@ namespace Laboratorio01PrograIII
                 }
                 else
                 {
-                    pet.Image = new byte[0]; // Si no hay imagen, se envía un byte vacío
+                    pet.Image = new byte[0]; 
                 }
            
                 crud.updatePet(pet);
