@@ -94,7 +94,6 @@ namespace Data
             actualConnection.Close();
             }
         
-
         public void load_Sizes(DataGridView dgv)
         {
             connection connection = new connection();
@@ -185,6 +184,7 @@ namespace Data
             }
             return Name;
         }
+
         public void get_adoptedPets(DataGridView dgv)
         {
             connection connection = new connection();
@@ -200,7 +200,6 @@ namespace Data
             adapter.Fill(datatable);
             dgv.DataSource= datatable;
         }
-
 
         public void get_Top3Likes(DataGridView dgv)
         {
@@ -246,7 +245,6 @@ namespace Data
                     }
                 }
             }
-
             actualConnection.Close();
         }
 

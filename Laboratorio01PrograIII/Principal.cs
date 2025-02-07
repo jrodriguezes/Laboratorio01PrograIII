@@ -242,7 +242,6 @@ namespace Laboratorio01PrograIII
                 nuevoFormulario.ShowDialog();
             }
         }
- 
         private void rdPets_CheckedChanged(object sender, EventArgs e)
         {
             logic.LoadAdoptedPets(dgvReport);

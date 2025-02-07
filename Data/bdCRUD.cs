@@ -51,7 +51,6 @@ namespace Data
         public void insert_PetLikes(int pet_Id)
         {
             int likes = 0;
-
             connection connection = new connection();
             NpgsqlConnection actualConnection = connection.ConexionBD();
             NpgsqlCommand cmd = new NpgsqlCommand("Select Likes from Pet_Likes where Pet_Id =" + pet_Id, actualConnection);
@@ -137,7 +136,6 @@ namespace Data
                 MessageBox.Show("Error al actualizar la imagen en la base de datos: " + ex.Message);
             }
         }
-
 
     }
 }
