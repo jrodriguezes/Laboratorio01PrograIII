@@ -90,8 +90,6 @@ namespace Data
                     }
                 }
             }
-            
-
             actualConnection.Close();
             }
         
@@ -215,6 +213,40 @@ namespace Data
 
             adapter.Fill(datatable);
             dgv.DataSource = datatable;
+
+            // Ahora, carga las imágenes
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.Cells["Foto"].Value != DBNull.Value)
+                {
+                    if (row.Cells["Foto"].Value is byte[] imageData)
+                    {
+                        // Si la celda contiene un byte[], conviértelo a una imagen
+                        if (imageData.Length > 0)
+                        {
+                            try
+                            {
+                                using (MemoryStream ms = new MemoryStream(imageData))
+                                {
+                                    ms.Position = 0; // Asegurarse de que el stream esté en la posición inicial
+                                    row.Cells["Foto"].Value = Image.FromStream(ms); // Asignar la imagen a la celda
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error al cargar la imagen: " + ex.Message);
+                            }
+                        }
+                    }
+                    else if (row.Cells["Foto"].Value is Image img)
+                    {
+                        // Si ya es una imagen, asignar directamente
+                        row.Cells["Foto"].Value = img;
+                    }
+                }
+            }
+
+            actualConnection.Close();
         }
 
     }
