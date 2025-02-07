@@ -14,10 +14,13 @@ namespace Laboratorio01PrograIII
     public partial class PetInformationWindow : Form
     {
         private int petId;
-        public PetInformationWindow(int petId)
+        private DataGridView dgvPet;
+
+        public PetInformationWindow(int petId, DataGridView dgvPet)
         {
             InitializeComponent();
             this.petId = petId;
+            this.dgvPet = dgvPet;
         }
 
         private void btnLike_Click(object sender, EventArgs e)
@@ -39,8 +42,10 @@ namespace Laboratorio01PrograIII
             bd.insert_Adoption(userId, name, petId, actualDate);
             string petName = qry.get_NameByPetId(petId);
 
-            MessageBox.Show("Felicidades " + name + " has adoptado a " + petName);
+            MessageBox.Show("Felicidades " + name + " has adoptado a: " + petName);
+            qry.queryPets(dgvPet);
             this.Close();
+
         }
 
         private void rdLike_Checked_Changed(object sender, EventArgs e)
