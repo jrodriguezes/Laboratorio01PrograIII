@@ -15,7 +15,6 @@ namespace Data
         {
             connection connection = new connection();
             NpgsqlConnection actualConnection = connection.ConexionBD();
-
             NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO Pet (Name, Color, Size, Sex, Years, Status, DateofEntry, Image) " +
             "VALUES ('" + pet.Name + "', '" + pet.Color + "', '" + pet.Size + "', '" + pet.Sex + "', " +
             pet.Years + ", " + pet.Status + ", '" + pet.DateOfEntry.ToString("yyyy-MM-dd") + "', " +
@@ -56,11 +55,8 @@ namespace Data
 
             connection connection = new connection();
             NpgsqlConnection actualConnection = connection.ConexionBD();
-
             NpgsqlCommand cmd = new NpgsqlCommand("Select Likes from Pet_Likes where Pet_Id =" + pet_Id, actualConnection);
-
             NpgsqlDataReader dr = cmd.ExecuteReader();
-
 
             if (dr.HasRows)
             {
@@ -83,9 +79,7 @@ namespace Data
                 cmd = new NpgsqlCommand("INSERT INTO Pet_Likes (Pet_Id, Likes) VALUES (" + pet_Id + ", 1)", actualConnection);
                 cmd.ExecuteNonQuery();
             }
-
             MessageBox.Show("Has dado un like!");
-
             actualConnection.Close();
         }
 

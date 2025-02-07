@@ -25,15 +25,12 @@ namespace Laboratorio01PrograIII
             spinnerYears.Visible = true;
             dgvPet.Columns["Id"].Visible = false;  // Ocultar la columna Id
 
-
             // Posicionar en la primera celda de su columna correspondiente
             adjustPosition(0);
             bdQueries bd = new bdQueries();
             bd.load_Sizes(dgvPet);
             bd.load_Colors(dgvPet);
             bd.queryPets(dgvPet);
-            
-
         }
 
         private void dgv_CellEnter(object sender, DataGridViewCellEventArgs e)
@@ -134,11 +131,9 @@ namespace Laboratorio01PrograIII
 
                 MessageBox.Show("Mascota insertada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-
             } else if (e.RowIndex >= 0 && e.ColumnIndex == 9)
             {
                 // Recoger la información de la fila seleccionada
-   
                 objPet pet = new objPet
                 {
                     Id = Convert.ToInt32(dgvPet.Rows[e.RowIndex].Cells["Id"].Value),

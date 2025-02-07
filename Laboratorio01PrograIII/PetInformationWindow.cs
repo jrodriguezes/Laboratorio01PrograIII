@@ -13,7 +13,6 @@ namespace Laboratorio01PrograIII
 {
     public partial class PetInformationWindow : Form
     {
-
         private int petId;
         public PetInformationWindow(int petId)
         {

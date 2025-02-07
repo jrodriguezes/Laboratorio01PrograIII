@@ -16,7 +16,6 @@ namespace Data
 {
     public class bdQueries
     {
-
         public void queryPets(DataGridView dgv)
         {
             connection connection = new connection();
@@ -78,9 +77,7 @@ namespace Data
 
                 actualConnection.Close();
             }
-
         }
-
 
         public void load_Sizes(DataGridView dgv)
         {
@@ -106,10 +103,8 @@ namespace Data
                     }
                 }
             }
-
             actualConnection.Close();
         }
-
 
         public void load_Colors(DataGridView dgv)
         {
@@ -135,10 +130,7 @@ namespace Data
                     }
                 }
             }
-
             actualConnection.Close();
-
-
         }
 
         public void load_PetInformation(DataGridView dgv, int id)
