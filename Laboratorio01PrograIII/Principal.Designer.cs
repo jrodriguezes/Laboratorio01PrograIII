@@ -45,10 +45,17 @@
             this.Insertar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Informacion = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdPets = new System.Windows.Forms.RadioButton();
+            this.rdLikes = new System.Windows.Forms.RadioButton();
+            this.dgvReport = new System.Windows.Forms.DataGridView();
             this.Reporte.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinnerYears)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPet)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).BeginInit();
             this.SuspendLayout();
             // 
             // Reporte
@@ -114,6 +121,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.dgvReport);
+            this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -190,6 +199,49 @@
             this.Informacion.ReadOnly = true;
             this.Informacion.Width = 80;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rdLikes);
+            this.groupBox1.Controls.Add(this.rdPets);
+            this.groupBox1.Location = new System.Drawing.Point(341, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(210, 53);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            // 
+            // rdPets
+            // 
+            this.rdPets.AutoSize = true;
+            this.rdPets.Location = new System.Drawing.Point(2, 19);
+            this.rdPets.Name = "rdPets";
+            this.rdPets.Size = new System.Drawing.Size(125, 17);
+            this.rdPets.TabIndex = 0;
+            this.rdPets.TabStop = true;
+            this.rdPets.Text = "Mascotas Adoptadas";
+            this.rdPets.UseVisualStyleBackColor = true;
+            this.rdPets.CheckedChanged += new System.EventHandler(this.rdPets_CheckedChanged);
+            // 
+            // rdLikes
+            // 
+            this.rdLikes.AutoSize = true;
+            this.rdLikes.Location = new System.Drawing.Point(133, 19);
+            this.rdLikes.Name = "rdLikes";
+            this.rdLikes.Size = new System.Drawing.Size(77, 17);
+            this.rdLikes.TabIndex = 1;
+            this.rdLikes.TabStop = true;
+            this.rdLikes.Text = "Top 3 likes";
+            this.rdLikes.UseVisualStyleBackColor = true;
+            this.rdLikes.CheckedChanged += new System.EventHandler(this.rdLikes_CheckedChanged);
+            // 
+            // dgvReport
+            // 
+            this.dgvReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvReport.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvReport.Location = new System.Drawing.Point(6, 59);
+            this.dgvReport.Name = "dgvReport";
+            this.dgvReport.Size = new System.Drawing.Size(847, 150);
+            this.dgvReport.TabIndex = 1;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,6 +255,10 @@
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spinnerYears)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPet)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -226,6 +282,10 @@
         private System.Windows.Forms.DataGridViewButtonColumn Insertar;
         private System.Windows.Forms.DataGridViewButtonColumn Modificar;
         private System.Windows.Forms.DataGridViewButtonColumn Informacion;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rdLikes;
+        private System.Windows.Forms.RadioButton rdPets;
+        private System.Windows.Forms.DataGridView dgvReport;
     }
 }
 

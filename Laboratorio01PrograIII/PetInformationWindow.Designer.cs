@@ -54,7 +54,7 @@
             // 
             // btnAdoptar
             // 
-            this.btnAdoptar.Location = new System.Drawing.Point(224, 267);
+            this.btnAdoptar.Location = new System.Drawing.Point(235, 267);
             this.btnAdoptar.Name = "btnAdoptar";
             this.btnAdoptar.Size = new System.Drawing.Size(75, 23);
             this.btnAdoptar.TabIndex = 1;
@@ -65,6 +65,7 @@
             // dgvInformacion
             // 
             this.dgvInformacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvInformacion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvInformacion.Location = new System.Drawing.Point(12, 12);
             this.dgvInformacion.Name = "dgvInformacion";
             this.dgvInformacion.Size = new System.Drawing.Size(471, 150);

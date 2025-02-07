@@ -169,5 +169,21 @@ namespace Data
             }
             return Name;
         }
+        public void get_adoptedPets(DataGridView dgv)
+        {
+            connection connection = new connection();
+            NpgsqlConnection actualConnection = connection.ConexionBD();
+
+            DataTable datatable = new DataTable();
+
+
+            NpgsqlDataAdapter adapter = new NpgsqlDataAdapter("Select a.Owner_Id as Cedula, a.Owner_Name as Nombre, " +
+                "p.Name as Nombre_Mascota, p.Color as Color, p.Size as Tamano, p.Sex as Sexo, " +
+                "p.Years as Anos, a.Adoption_Date as Fecha_Adopcion  from Adoption a" +
+                " left join Pet p on p.Id = a.Pet_Id", actualConnection);
+
+            adapter.Fill(datatable);
+            dgv.DataSource= datatable;
+        }
     }
 }

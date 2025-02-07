@@ -178,5 +178,17 @@ namespace Laboratorio01PrograIII
                 nuevoFormulario.ShowDialog();
             }
         }
+
+        private void rdPets_CheckedChanged(object sender, EventArgs e)
+        {
+            dgvReport.Rows.Clear();
+            bdQueries qry = new bdQueries();
+            qry.get_adoptedPets(dgvReport);
+        }
+
+        private void rdLikes_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
