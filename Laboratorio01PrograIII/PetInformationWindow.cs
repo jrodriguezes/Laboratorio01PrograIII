@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Data;
+using Logic;
 
 namespace Laboratorio01PrograIII
 {
@@ -15,6 +16,7 @@ namespace Laboratorio01PrograIII
     {
         private int petId;
         private DataGridView dgvPet;
+        bdLogic logic = new bdLogic();
 
         public PetInformationWindow(int petId, DataGridView dgvPet)
         {
@@ -25,25 +27,22 @@ namespace Laboratorio01PrograIII
 
         private void btnLike_Click(object sender, EventArgs e)
         {
-            bdCRUD bd = new bdCRUD();
-            bd.insert_PetLikes(petId);
+            logic.InsertPetLikes(petId);
             this.Close();
         }
 
         private void btnAdoptar_Click(object sender, EventArgs e)
         {
-            bdQueries qry = new bdQueries();
-            bdCRUD bd = new bdCRUD();
             int userId = Convert.ToInt32(txtCedula.Text);
             string name = txtNombre.Text;
-            bd.insert_User(userId, name);
+            logic.InsertUser(userId, name);
             DateTime actualDate = DateTime.Now;
 
-            bd.insert_Adoption(userId, name, petId, actualDate);
-            string petName = qry.get_NameByPetId(petId);
+            logic.InsertAdoption(userId, name, petId, actualDate);
+            string petName = logic.GetPetNameById(petId);
 
             MessageBox.Show("Felicidades " + name + " has adoptado a: " + petName);
-            qry.queryPets(dgvPet);
+            logic.LoadPets(dgvPet);
             this.Close();
 
         }
@@ -75,14 +74,13 @@ namespace Laboratorio01PrograIII
 
         private void InformationForm_Load(object sender, EventArgs e)
         {
-            bdQueries qry = new bdQueries();
             txtCedula.Visible = false;
             txtNombre.Visible = false;
             btnAdoptar.Visible = false;
             lbl.Visible = false;
             label1.Visible = false;
             btnLike.Visible = false;
-            qry.load_PetInformation(dgvInformacion, petId);
+            logic.LoadPetInformation(dgvInformacion, petId);
         }
     }
 }
