@@ -23,7 +23,8 @@ namespace Data
             NpgsqlConnection actualConnection = connection.ConexionBD();
 
             DataTable dataTable = new DataTable();
-            NpgsqlDataAdapter adapter = new NpgsqlDataAdapter("SELECT id, name, color, size, sex, years, status, dateofentry, image FROM pet WHERE status = TRUE", actualConnection);
+            NpgsqlDataAdapter adapter = new NpgsqlDataAdapter("SELECT id, name, color, size, sex, years, status, dateofentry, " +
+                "image FROM pet WHERE status = TRUE", actualConnection);
             adapter.Fill(dataTable);
 
             dgv.Rows.Clear(); // Limpia filas antes de cargar nuevas
