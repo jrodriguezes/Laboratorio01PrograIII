@@ -31,7 +31,7 @@ namespace Data
 
             foreach (DataRow row in dataTable.Rows)
             {
-                int rowIndex = dgv.Rows.Add(); // Agrega una nueva fila y obtiene su índice
+                int rowIndex = dgv.Rows.Add(); // Agrega una nueva fila y obtiene su indice
 
                 // Asignar el ID a la columna correspondiente
                 dgv.Rows[rowIndex].Cells["ID"].Value = row["id"].ToString();
@@ -47,7 +47,7 @@ namespace Data
                 }
                 else
                 {
-                    colorCell.Value = colorCell.Items.Count > 0 ? colorCell.Items[0] : null; // Valor por defecto si no está en la lista
+                    colorCell.Value = colorCell.Items.Count > 0 ? colorCell.Items[0] : null; // Valor por defecto si no esta en la lista
                 }
 
                 // Configuración de la celda ComboBox "Tamaño"
@@ -58,7 +58,7 @@ namespace Data
                 }
                 else
                 {
-                    sizeCell.Value = sizeCell.Items.Count > 0 ? sizeCell.Items[0] : null; // Valor por defecto si no está en la lista
+                    sizeCell.Value = sizeCell.Items.Count > 0 ? sizeCell.Items[0] : null; // Valor por defecto si no esta en la lista
                 }
 
                 // Configuración del CheckBox para "Sexo"
@@ -70,13 +70,13 @@ namespace Data
                 {
                     byte[] imageData = (byte[])row["image"];
 
-                    if (imageData.Length > 0) // Verificar si el array no está vacío
+                    if (imageData.Length > 0) // Verificar si el array no esta vacio
                     {
                         try
                         {
                             using (MemoryStream ms = new MemoryStream(imageData))
                             {
-                                ms.Position = 0; // Asegurar que el stream esté en la posición inicial
+                                ms.Position = 0; // Asegurar que el stream esté en la posicion inicial
                                 dgv.Rows[rowIndex].Cells["Foto"].Value = Image.FromStream(ms);
                             }
                         }
@@ -87,7 +87,7 @@ namespace Data
                     }
                     else
                     {
-                        dgv.Rows[rowIndex].Cells["Foto"].Value = null; // Si la imagen está vacía, mostrar celda vacía
+                        dgv.Rows[rowIndex].Cells["Foto"].Value = null; // Si la imagen esta vacia, mostrar celda vacia
                     }
                 }
             }
@@ -161,7 +161,6 @@ namespace Data
                 "WHERE p.id = " + id, actualConnection);
             adapter.Fill(datatable);
             dgv.DataSource = datatable;
-
         }
 
         public string get_NameByPetId(int petId)
@@ -221,14 +220,14 @@ namespace Data
                 {
                     if (row.Cells["Foto"].Value is byte[] imageData)
                     {
-                        // Si la celda contiene un byte[], conviértelo a una imagen
+                        // Si la celda contiene un byte[], lo convierte a una imagen
                         if (imageData.Length > 0)
                         {
                             try
                             {
                                 using (MemoryStream ms = new MemoryStream(imageData))
                                 {
-                                    ms.Position = 0; // Asegurarse de que el stream esté en la posición inicial
+                                    ms.Position = 0; // Asegurarse de que el stream este en la posicion inicial
                                     row.Cells["Foto"].Value = Image.FromStream(ms); // Asignar la imagen a la celda
                                 }
                             }

@@ -69,12 +69,10 @@ namespace Logic
         {
             return qry.get_NameByPetId(petId);
         }
-
         public void LoadAdoptedPets(DataGridView dgv)
         {
             qry.get_adoptedPets(dgv);
         }
-
         public void LoadTop3LikedPets(DataGridView dgv)
         {
             qry.get_Top3Likes(dgv);

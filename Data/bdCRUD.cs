@@ -40,7 +40,6 @@ namespace Data
                 "WHERE Id = " + pet.Id, actualConnection);
 
             int rowsAffected = cmd.ExecuteNonQuery();
-            MessageBox.Show("Filas afectadas: " + rowsAffected); // Depuración
 
             if (rowsAffected == 0)
             {
@@ -95,7 +94,6 @@ namespace Data
                 NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO owner(Id, Name) VALUES (" + userId + ", '" + name + "')", actualConnection);
                 cmd.ExecuteNonQuery();
             }
-
             actualConnection.Close();
         }
 
@@ -128,7 +126,6 @@ namespace Data
                 {
                     cmd.ExecuteNonQuery();
                 }
-
                 actualConnection.Close();
             }
             catch (Exception ex)
