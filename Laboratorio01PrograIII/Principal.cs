@@ -99,7 +99,6 @@ namespace Laboratorio01PrograIII
              
             }
         }
-
         private void spinnerYears_ValueChanged(object sender, EventArgs e)
         {
             int fila = dgvPet.CurrentCell.RowIndex;

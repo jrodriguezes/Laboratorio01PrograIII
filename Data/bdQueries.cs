@@ -100,16 +100,16 @@ namespace Data
             NpgsqlConnection actualConnection = connection.ConexionBD();
 
             NpgsqlCommand cmd = new NpgsqlCommand("SELECT size FROM Size", actualConnection);
-            NpgsqlDataReader reader = cmd.ExecuteReader();
+            NpgsqlDataReader rd = cmd.ExecuteReader();
 
             // Verificar si la columna "Tamaño" es un ComboBoxColumn
             if (dgv.Columns["Tamaño"] is DataGridViewComboBoxColumn sizeColumn)
             {
                 sizeColumn.Items.Clear(); // Limpia las opciones previas antes de cargar nuevas
 
-                while (reader.Read())
+                while (rd.Read())
                 {
-                    string size = reader["size"].ToString();
+                    string size = rd["size"].ToString();
 
                     // Agregar valores al ComboBoxColumn
                     if (!sizeColumn.Items.Contains(size))
@@ -128,15 +128,15 @@ namespace Data
 
             NpgsqlCommand cmd = new NpgsqlCommand("SELECT color FROM COLOR", actualConnection);
 
-            NpgsqlDataReader reader = cmd.ExecuteReader();
+            NpgsqlDataReader rd = cmd.ExecuteReader();
 
             if (dgv.Columns["Color"] is DataGridViewComboBoxColumn sizeColumn)
             {
                 sizeColumn.Items.Clear(); // Limpia las opciones previas antes de cargar nuevas
 
-                while (reader.Read())
+                while (rd.Read())
                 {
-                    string color = reader["color"].ToString();
+                    string color = rd["color"].ToString();
 
                     // Agregar valores al ComboBoxColumn
                     if (!sizeColumn.Items.Contains(color))
